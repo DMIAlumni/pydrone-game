@@ -1,7 +1,7 @@
 from utils.matrix_generator import print_matrix
 
 
-class Drone:
+class Drone(object):
     def __init__(self, world_size, x, y):
         self.kb = self.generate_kb(world_size)
         self.actual_position = (x, y)
