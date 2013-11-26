@@ -1,4 +1,4 @@
-from matrix_generator import print_matrix
+from utils.matrix_generator import print_matrix
 
 
 class Drone:

@@ -1,6 +1,6 @@
-from Game import *
-from Drone import *
-from matrix_generator import *
+from game_engine.Game import Game
+from game_engine.Drone import Drone
+from utils.matrix_generator import world_generator
 
 # Global parameters
 MATRIX_SIZE = 20
