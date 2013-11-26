@@ -1,5 +1,4 @@
-from game_engine.Game import Game
-from game_engine.Drone import Drone
+from game_engine import Game, Drone
 from utils.matrix_generator import world_generator
 
 # Global parameters
