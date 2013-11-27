@@ -1,17 +1,10 @@
-from utils.direction_modifier import modifier
+from utils.direction_modifier import modifier, fix_direction
 
 
 def search_far(kb, actual_position, distances, drone):
     X = actual_position[0]
     Y = actual_position[1]
     STEP = len(distances)
-    LIMIT = len(kb[0]) - 1
-
-    # Controllo dell'actual_position per sapere se si e' sul bordo
-    BORDER_X_R = X == LIMIT
-    BORDER_Y_U = Y == LIMIT
-    BORDER_X_L = X <= 0
-    BORDER_Y_D = Y <= 0
 
     if STEP == 1 or STEP == 2:
         direction = 0
@@ -46,21 +39,22 @@ def search_far(kb, actual_position, distances, drone):
             elif second_measure > third_measure:
                 direction = 2
 
-    if distances[-1] > distances[-2]:
-        drone.distances = []
+        if distances[-1] > distances[-2]:
+            drone.distances = []
 
-    modifier_x = modifier(direction)[0]
-    modifier_y = modifier(direction)[1]
-
-    # Cambio del verso del movimento se raggiungo il bordo
-    # ad esempio bordo destro, mando x in direzione -1, sinistra
-    if BORDER_X_R:
-        modifier_x = -1
-    if BORDER_X_L:
-        modifier_x = 1
-    if BORDER_Y_U:
-        modifier_y = 1
-    if BORDER_Y_D:
-        modifier_y = -1
-
+    modifier_x, modifier_y = modifier(direction)
+    drone.last_direction = direction
+    modifier_x, modifier_y = fix_direction(X, Y, modifier_x, modifier_y, kb)
     return X + modifier_x, Y + modifier_y
+
+
+def search_close(kb, actual_position, last_direction, distances):
+    X = actual_position[0]
+    Y = actual_position[1]
+    if len(distances) <= 2:
+        direction = (last_direction + 3) % 8
+    else:
+        direction = last_direction
+    mod_x, mod_y = modifier(direction)
+    mod_x, mod_y = fix_direction(X, Y, mod_x, mod_y, kb)
+    return X + mod_x, Y + mod_y
