@@ -1,1 +1,1 @@
-from .algorithm import search_far
+from .algorithm import search_far, search_close
