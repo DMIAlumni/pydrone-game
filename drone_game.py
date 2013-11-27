@@ -11,7 +11,7 @@ END_Y = 10
 # ...
 
 world = world_generator(MATRIX_SIZE, END_X, END_Y)
-drones = [Drone(MATRIX_SIZE, 0, 0)]
+drones = [Drone(MATRIX_SIZE, 4, 5)]
 game = Game(world, drones)
 game.start_game()
 #print_matrix(game.world)
