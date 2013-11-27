@@ -16,3 +16,6 @@ def modifier(direction):
         return (0, 1)
     elif direction == 7:
         return (1, 1)
+
+def invert_direction(direction):
+    return (direction + 4)  % 8

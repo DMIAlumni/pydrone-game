@@ -1,19 +1,26 @@
 from utils.direction_modifier import modifier
+from utils.direction_modifier import invert_direction
 
 
-def search_far(kb, actual_position, distances):
+def search_far(kb, actual_position, distances, drone):
+    # Controllo dell'actual_position per sapere se si e' sul bordo
+    BORDER = False
+    GOING_FAR = False
+    X = actual_position[0]
+    Y = actual_position[1]
+    LIMIT = (len(kb[0]) - 1)
+    if X == LIMIT or Y == LIMIT or X <= 0 or Y <= 0 :
+        BORDER = True
     step = len(distances)
-    if step == 1:
-        return (actual_position[0] + modifier(0)[0], actual_position[1] + modifier(0)[1])
-    elif step == 2:
-        return (actual_position[0] + modifier(0)[0], actual_position[1] + modifier(0)[1])
-    elif step == 3:
-        return (actual_position[0] + modifier(2)[0], actual_position[1] + modifier(2)[1])
-    elif step == 4:
-        return (actual_position[0] + modifier(2)[0], actual_position[1] + modifier(2)[1])
+    if step == 1 or step == 2:
+        direction = 0
+    elif step == 3 or step == 4:
+        direction = 2
     elif step == 5:
-        return (actual_position[0] + modifier(5)[0], actual_position[1] + modifier(5)[1])
+        direction = 5
     else:
+        if distances[-1] > distances[-2]:
+            GOING_FAR = True
         dist1 = distances[0]
         dist2 = distances[2]
         dist3 = distances[4]
@@ -36,4 +43,8 @@ def search_far(kb, actual_position, distances):
                 direction = 6
             elif dist2 > dist3:
                 direction = 2
-        return (actual_position[0] + modifier(direction)[0], actual_position[1] + modifier(direction)[1])
+    if GOING_FAR == True:
+        drone.distances = []
+    if BORDER == True:
+        direction = invert_direction(direction)
+    return X + modifier(direction)[0], Y + modifier(direction)[1]

@@ -1,6 +1,6 @@
 import math
 import fpformat
-
+import os
 
 def world_generator(size, x_end, y_end):
     matrix = [[0 for i in range(size)] for j in range(size)]
@@ -11,17 +11,18 @@ def world_generator(size, x_end, y_end):
     return matrix
 
 
-def matrix_generator(size, sp, ap):
-    matrix = [[0 for i in range(size)] for j in range(size)]
-    for i in range(size):
-        for j in range(size):
-            matrix[i][j] = "*"
-    matrix[sp[0]][sp[1]] = "S"
-    matrix[ap[0]][ap[1]] = "A"
+def matrix_generator(size):
+    matrix = [["*" for i in range(size)] for j in range(size)]
+#    for i in range(size):
+#        for j in range(size):
+#            matrix[i][j] = "*"
+#    matrix[sp[0]][sp[1]] = "S"
+#    matrix[ap[0]][ap[1]] = "A"
     return matrix
 
 
 def print_matrix(matrix):
+    os.system("clear")
     size = len(matrix[0])
     for j in range(size):
         for i in range(size):
