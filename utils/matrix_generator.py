@@ -2,6 +2,7 @@ import math
 import fpformat
 import os
 
+
 def world_generator(size, x_end, y_end):
     matrix = [[0 for i in range(size)] for j in range(size)]
     for i in range(size):
@@ -12,12 +13,17 @@ def world_generator(size, x_end, y_end):
 
 
 def matrix_generator(size):
-    matrix = [["*" for i in range(size)] for j in range(size)]
-#    for i in range(size):
-#        for j in range(size):
-#            matrix[i][j] = "*"
-#    matrix[sp[0]][sp[1]] = "S"
-#    matrix[ap[0]][ap[1]] = "A"
+    matrix = [[0 for i in range(size)] for j in range(size)]
+    return matrix
+
+
+def matrix_generator_star(size, sp, ap):
+    matrix = [[0 for i in range(size)] for j in range(size)]
+    for i in range(size):
+        for j in range(size):
+            matrix[i][j] = "*"
+    matrix[sp[0]][sp[1]] = "S"
+    matrix[ap[0]][ap[1]] = "A"
     return matrix
 
 
