@@ -12,11 +12,15 @@ class Game(object):
             drone.probe(self.world[drone.actual_position[0]][drone.actual_position[1]])
             x, y = drone.strategy()
             drone.move(x, y)
-            i = i + 1
+            i += 1
             drone.print_world()
-            if self.asset_found(x, y):
+            print self.world[drone.actual_position[0]][drone.actual_position[1]]
+            if self.asset_found(x, y) or drone.fuel == 0:
                 self.asset_not_found = False
-        print "Found in ",i,"moves!"
+        if drone.fuel == 0:
+            print "Fuel finished"
+        else:
+            print "Found in ", i, "moves!"
 
     def next_drone(self):
         nextdrone = self.drones.pop()
