@@ -1,5 +1,5 @@
 from utils.matrix_generator import print_matrix, matrix_generator
-from algorithm import search_far, search_close
+from algorithm import search_far_calibration, search_close
 
 
 class Drone(object):
@@ -23,7 +23,7 @@ class Drone(object):
     def strategy(self):
         a = float(self.distances[-1])
         if a > 10.000:
-            return search_far(self.kb, self.actual_position, self.distances, self)
+            return search_far_calibration(self.kb, self.actual_position, self.distances, self)
         else:
             return search_close(self.kb, self.actual_position, self.last_direction, self.distances)
 

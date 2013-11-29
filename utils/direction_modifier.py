@@ -10,11 +10,12 @@ directions = {
 }
 
 
-def modifier(way):
-    return directions.get(way)
+def modifier(way, step):
+    return directions.get(way)[0]*step, directions.get(way)[1]*step
 
 
-def fix_direction(x_position, y_position, x_direction, y_direction, world):
+def fix_direction(x_position, y_position, direction, step, world):
+    x_direction, y_direction = modifier(direction, step)
     border = len(world[0]) - 1
     new_x = x_position + x_direction
     new_y = y_position + y_direction
