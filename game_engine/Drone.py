@@ -21,11 +21,11 @@ class Drone(object):
         self.graph[x][y] += 1
 
     def strategy(self):
-        a = float(self.distances[-1])
-        if a > 10.000:
+    #    a = float(self.distances[-1])
+    #    if a > 10.000:
             return search_far_calibration(self.kb, self.actual_position, self.distances, self)
-        else:
-            return search_close(self.kb, self.actual_position, self.last_direction, self.distances)
+    #    else:
+    #        return search_close(self.kb, self.actual_position, self.last_direction, self.distances)
 
     def print_world(self):
         print

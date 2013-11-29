@@ -23,42 +23,40 @@ def search_far_calibration(kb, actual_position, distances, drone):
         new_x_dir, new_y_dir = fix_direction(x, y, direction, long, kb)
         new_x, new_y = x + new_x_dir, y + new_y_dir
         drone.distances = [] if new_x != try_x or new_y != try_y else drone.distances
-        print distances
         return new_x, new_y
     else: # Calibrazione effettuata, inizio a muovermi
-        return search_far(kb, x, y, distances, drone)
+            # Le tre misurazioni della "triangolazione" per capire
+        # il quadrante in cui si trova il punto d'arrivo
+        first_measure = distances[0]
+        second_measure = distances[1]
+        third_measure = distances[2]
 
-def search_far(kb, x, y, distances, drone):
-    # Le tre misurazioni della "triangolazione" per capire
-    # il quadrante in cui si trova il punto d'arrivo
-    first_measure = distances[0]
-    second_measure = distances[1]
-    third_measure = distances[2]
-
-    if first_measure > second_measure:
-        if second_measure < third_measure:
-            direction = 7
-        elif second_measure > third_measure:
-            direction = 1
+        if first_measure > second_measure:
+            if second_measure < third_measure:
+                direction = 7
+            elif second_measure > third_measure:
+                direction = 1
+            else:
+                direction = 0
+        elif first_measure < second_measure:
+            if second_measure < third_measure:
+                direction = 5
+            elif second_measure > third_measure:
+                direction = 3
+            else:
+                direction = 4
         else:
-            direction = 0
-    elif first_measure < second_measure:
-        if second_measure < third_measure:
-            direction = 5
-        elif second_measure > third_measure:
-            direction = 3
-        else:
-            direction = 4
-    else:
-        if second_measure < third_measure:
-            direction = 6
-        elif second_measure > third_measure:
-            direction = 2
+            if second_measure < third_measure:
+                direction = 6
+            elif second_measure > third_measure:
+                direction = 2
 
-    if distances[-1] > distances[-2]:
-        drone.distances = []
-    drone.last_direction = direction
-    modifier_x, modifier_y = fix_direction(x, y, direction, 1, kb)
+        drone.last_direction = direction
+        return go_far(kb, x, y, drone)
+
+def go_far(kb, x, y, drone):
+    drone.distances = [] if len(drone.distances) > 4 and drone.distances[-1] > drone.distances[-2] else drone.distances
+    modifier_x, modifier_y = fix_direction(x, y, drone.last_direction, 1, kb)
     return x + modifier_x, y + modifier_y
 
 
@@ -69,6 +67,5 @@ def search_close(kb, actual_position, last_direction, distances):
         direction = (last_direction + 3) % 8
     else:
         direction = last_direction
-    mod_x, mod_y = modifier(direction, 1)
     mod_x, mod_y = fix_direction(X, Y, direction, 1, kb)
     return X + mod_x, Y + mod_y

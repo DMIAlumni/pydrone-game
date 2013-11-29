@@ -10,11 +10,10 @@ class Game(object):
             raw_input()
             drone = self.next_drone()
             drone.probe(self.world[drone.actual_position[0]][drone.actual_position[1]])
+            drone.print_world()
             x, y = drone.strategy()
             drone.move(x, y)
             i += 1
-            drone.print_world()
-            print self.world[drone.actual_position[0]][drone.actual_position[1]]
             if self.asset_found(x, y) or drone.fuel == 0:
                 self.asset_not_found = False
         if drone.fuel == 0:
