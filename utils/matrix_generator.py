@@ -7,7 +7,7 @@ def world_generator(size, x_end, y_end):
     matrix = [[0 for i in range(size)] for j in range(size)]
     for i in range(size):
         for j in range(size):
-            matrix[i][j] = fpformat.fix(math.sqrt(math.fabs(pow((x_end - i), 2) + pow((y_end - j), 2))), 3)
+            matrix[i][j] = float(fpformat.fix(math.sqrt(math.fabs(pow((x_end - i), 2) + pow((y_end - j), 2))), 3))
     matrix[x_end][y_end] = -1
     return matrix
 
