@@ -6,7 +6,10 @@ def search_far_calibration(kb, actual_position, distances, drone):
     y = actual_position[1]
     STEP = len(distances)
 
-    if STEP <= 3: # Calibrazione non effettuata
+    if STEP <= 3:
+
+        # Calibrazione non effettuata
+
         long = 2
         if STEP == 1:
             direction = 0
@@ -50,11 +53,9 @@ def search_far_calibration(kb, actual_position, distances, drone):
         drone.last_direction = direction
         return go_far(kb, x, y, drone)
 
-def go_far(kb, x, y, drone):
-    print len(drone.distances), drone.distances[-1], drone.distances[-2]
 
-    if len(drone.distances) > 4 and drone.distances[-1] > drone.distances[-2]:
-        drone.distances = []
+def go_far(kb, x, y, drone):
+    drone.distances = [] if len(drone.distances) > 4 and drone.distances[-1] > drone.distances[-2] else drone.distances
     return void_directions(x, y, drone.last_direction, kb, drone, 1)
 
 
@@ -68,6 +69,7 @@ def void_directions(x, y, direction, kb, drone, long):
     new_x, new_y = x + new_x_dir, y + new_y_dir
     drone.distances = [] if new_x != try_x or new_y != try_y else drone.distances
     return new_x, new_y
+
 
 def search_close(kb, actual_position, last_direction, distances):
     X = actual_position[0]

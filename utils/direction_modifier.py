@@ -11,7 +11,7 @@ directions = {
 
 
 def modifier(way, step):
-    return directions.get(way)[0]*step, directions.get(way)[1]*step
+    return directions.get(way)[0] * step, directions.get(way)[1] * step
 
 
 def fix_direction(x_position, y_position, direction, step, world):
