@@ -14,6 +14,17 @@ def modifier(way, step):
     return directions.get(way)[0] * step, directions.get(way)[1] * step
 
 
+def void_directions(x, y, direction, kb, drone, long):
+    # Se non posso andare in una delle direzioni, perche mi trovo al bordo del mondo
+    # il fix mi rimanda in quella opposta, e svuoto l'array distances in modo
+    # da riniziare da capo la calibrazione in un punto piu conveninete
+    try_x_dir, try_y_dir = modifier(direction, long)
+    new_x_dir, new_y_dir = fix_direction(x, y, direction, long, kb)
+    new_x, new_y = x + new_x_dir, y + new_y_dir
+    drone.distances = [] if new_x != x + try_x_dir or new_y != y + try_y_dir else drone.distances
+    return new_x, new_y
+
+
 def fix_direction(x_position, y_position, direction, step, world):
     x_direction, y_direction = modifier(direction, step)
     border = len(world[0]) - 1
