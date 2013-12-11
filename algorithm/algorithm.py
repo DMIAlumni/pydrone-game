@@ -1,53 +1,53 @@
 from utils.direction_modifier import void_directions, get_direction
 
+d = {
+    "E": 0,
+    "NE": 1,
+    "N": 2,
+    "NO": 3,
+    "O": 4,
+    "SO": 5,
+    "S": 6,
+    "SE": 7,
+}
+
 
 def search_far_calibration(kb, actual_position, distances, drone):
     x = actual_position[0]
     y = actual_position[1]
     STEP = len(distances)
 
+    # Calibrazione non effettuata
     if STEP <= 3:
-
-        # Calibrazione non effettuata
-
-        long = 1
         if STEP == 1:
-            direction = 0
+            direction = d["E"]
         elif STEP == 2:
-            direction = 2
+            direction = d["N"]
         elif STEP == 3:
-            direction = 5
-            long = 1
-        return void_directions(x, y, direction, kb, drone, long)
+            direction = d["SO"]
+        return void_directions(x, y, direction, kb, drone, 1)
+
+    # Calibrazione effettuata, inizio a muovermi
     elif STEP == 4:
-        # Calibrazione effettuata, inizio a muovermi
-        #
+
         # Le tre misurazioni della "triangolazione" per capire
         # il quadrante in cui si trova il punto d'arrivo
-        first_measure = distances[0]
-        second_measure = distances[1]
-        third_measure = distances[2]
 
-        if first_measure > second_measure:
-            if second_measure < third_measure:
-                direction = 7
-            elif second_measure > third_measure:
-                direction = 1
-            else:
-                direction = 0
-        elif first_measure < second_measure:
-            if second_measure < third_measure:
-                direction = 5
-            elif second_measure > third_measure:
-                direction = 3
-            else:
-                direction = 4
-        else:
-            if second_measure < third_measure:
-                direction = 6
-            elif second_measure > third_measure:
-                direction = 2
-        drone.last_direction = direction
+        sud_ovest = distances[0]
+        sud_est = distances[1]
+        nord_est = distances[2]
+
+        if sud_est < nord_est:
+            direction = "S"
+        elif sud_est > nord_est:
+            direction = "N"
+        if sud_ovest > sud_est:
+            direction = direction + "E"
+        elif sud_ovest < sud_est:
+            direction = direction + "O"
+
+        drone.last_direction = d[direction]
+
     if distances[-1] > 2.0:
         return go_far(kb, x, y, drone)
     else:
@@ -73,10 +73,23 @@ def change_strategy(drone):
     drone.distances = []
     x, y = drone.actual_position
     close_distances = []
+
+    # Controllo in quale dei punti adiacenti sono passato meno volte
+
     for x_index in (x - 1, x, x + 1):
         for y_index in (y - 1, y, y + 1):
+
+            # Se il punto e' accessibile, e non e' il punto stesso in cui sono partito
+            # viene aggiunto all'array
+
             if x_index >= 0 and x_index < len(drone.kb[0]) and y_index >= 0 and y_index < len(drone.kb[0]):
                 if x_index != x or y_index != y:
+
+                    # Questo array conterra' tutti i punti adiacenti ed accessibili
+
                     close_distances.append([drone.graph[x_index][y_index], x_index, y_index])
+
+    # Vado verso il primo dei punti in cui sono passato meno volte
+
     go_x, go_y = min(close_distances)[1], min(close_distances)[2]
     return void_directions(x, y, get_direction(go_x - x, go_y - y), drone.kb, drone, 1)
