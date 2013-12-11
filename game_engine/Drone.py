@@ -27,7 +27,6 @@ class Drone(object):
         else:
             return change_strategy(self)
 
-
     def print_world(self):
         print
         print_matrix(self.graph)
