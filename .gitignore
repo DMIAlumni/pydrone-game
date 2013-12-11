@@ -38,3 +38,7 @@ nosetests.xml
 # IDE 
 .idea/
 
+#Tests
+count*
+test*
+output*
