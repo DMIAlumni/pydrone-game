@@ -1,5 +1,5 @@
 from utils.matrix_generator import print_matrix, matrix_generator
-from algorithm import search_far_calibration, search_close
+from algorithm import search_far_calibration, change_strategy
 
 
 class Drone(object):
@@ -21,7 +21,12 @@ class Drone(object):
         self.graph[x][y] += 1
 
     def strategy(self):
-        return search_far_calibration(self.kb, self.actual_position, self.distances, self)
+        x, y = search_far_calibration(self.kb, self.actual_position, self.distances, self)
+        if self.graph[x][y] <= 2:
+            return x, y
+        else:
+            return change_strategy(self)
+
 
     def print_world(self):
         print

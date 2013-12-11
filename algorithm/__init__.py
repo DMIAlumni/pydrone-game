@@ -1,1 +1,1 @@
-from .algorithm import search_far_calibration, search_close
+from .algorithm import search_far_calibration, change_strategy

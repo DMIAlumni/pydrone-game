@@ -9,6 +9,21 @@ directions = {
     7: (1, 1),
 }
 
+get_directions = {
+    (1, 0): 0,
+    (1, -1): 1,
+    (0, -1): 2,
+    (-1, -1): 3,
+    (-1, 0): 4,
+    (-1, 1): 5,
+    (0, 1): 6,
+    (1, 1): 7,
+}
+
+
+def get_direction(x_mod, y_mod):
+    return get_directions[x_mod, y_mod]
+
 
 def modifier(way, step):
     return directions.get(way)[0] * step, directions.get(way)[1] * step

@@ -17,9 +17,9 @@ class Game(object):
             if self.asset_found(x, y) or drone.fuel == 0:
                 self.asset_not_found = False
         if drone.fuel == 0:
-            print "Fuel finished"
+            print 0
         else:
-            print "Found in ", i, "moves!"
+            print i
 
     def next_drone(self):
         nextdrone = self.drones.pop()

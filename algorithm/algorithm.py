@@ -1,4 +1,4 @@
-from utils.direction_modifier import void_directions
+from utils.direction_modifier import void_directions, get_direction
 
 
 def search_far_calibration(kb, actual_position, distances, drone):
@@ -67,3 +67,18 @@ def search_close(kb, x, y, drone):
     else:
         direction = drone.last_direction
     return void_directions(x, y, direction, kb, drone, 1)
+
+
+def change_strategy(drone):
+    drone.distances = []
+    x, y = drone.actual_position
+    close_distances = []
+    for x_index in (x - 1, x + 1):
+        for y_index in (y - 1, y + 1):
+            if x_index >= 0 and x_index < len(drone.kb[0])  and y_index >= 0 and y_index < len(drone.kb[0]):
+                #if x_index != 0 or y_index != 0:
+                    #print x_index, y_index
+                    #raw_input()
+                close_distances.append([drone.graph[x_index][y_index], x_index, y_index])
+    go_x, go_y = min(close_distances)[1], min(close_distances)[2]
+    return void_directions(x, y, get_direction(go_x - x, go_y - y), drone.kb, drone, 1)
