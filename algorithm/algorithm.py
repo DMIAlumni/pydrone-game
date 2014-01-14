@@ -75,11 +75,9 @@ def change_strategy(drone):
 
                     # Questo array conterra' tutti i punti adiacenti ed accessibili
                     try:
-                        close_distances.append([drone.kb[(x_index, y_index)][0], x_index, y_index])
+                        close_distances.append([drone.kb[(x_index, y_index)][1], x_index, y_index])
                     except:
-                        pass
-
-
+                        close_distances.append([0, x_index, y_index])
 
     # Vado verso il primo dei punti in cui sono passato meno volte
 
