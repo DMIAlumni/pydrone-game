@@ -1,8 +1,10 @@
 from direction_modifier import modifier, d
 
+
 def sum_coord(point, mod):
     mod = modifier(mod, 1)
     return (point[0] + mod[0], point[1] + mod[1])
+
 
 class Graph(object):
     def __init__(self, x, y):
@@ -15,7 +17,7 @@ class Graph(object):
     def add_node(self, coord, way, probe):
         way = d[way]
         new_node = Node(sum_coord(coord, way), probe)
-        if not self.graph.has_key(new_node.k):
+        if not new_node.k in self.graph:
             self.graph[new_node.k] = new_node.v
         else:
             self.graph[new_node.k] = (new_node.v[0], new_node.v[1] + 1)
@@ -23,7 +25,7 @@ class Graph(object):
 
     def add_node_coord(self, coord):
         new_node = Node(coord, 0)
-        if not self.graph.has_key(new_node.k):
+        if not new_node.k in self.graph:
             self.graph[new_node.k] = new_node.v
         else:
             self.graph[new_node.k] = (new_node.v[0], new_node.v[1] + 1)
@@ -38,7 +40,8 @@ class Graph(object):
 
     def goto(self, coord, way):
         new_coord = sum_coord(coord, d[way])
-        return self.graph[new_coord] if self.graph.has_key(new_coord) else -1
+        return self.graph[new_coord] if new_coord in self.graph else -1
+
 
 class Node(object):
     def __init__(self, k, weight):

@@ -15,11 +15,8 @@ class Drone(object):
         #New init, using graph
         self.kb = Graph(x, y)
 
-
-
     def generate_kb(self, world_size):
         return [[0 for i in range(world_size)] for j in range(world_size)]
-
 
     def move(self, x, y):
         self.fuel -= 1

@@ -64,4 +64,3 @@ def fix_direction(x_position, y_position, direction, step, world):
     new_y_direction = y_direction * (-1) if new_y < 0 or new_y > border else y_direction
 
     return new_x_direction, new_y_direction
-
