@@ -24,11 +24,12 @@ class Graph(object):
         return new_node.k
 
     def add_node_coord(self, coord):
-        new_node = Node(coord, 0)
+        new_node = Node(coord, 1)
         if not new_node.k in self.graph:
             self.graph[new_node.k] = new_node.v
         else:
-            self.graph[new_node.k] = (new_node.v[0], new_node.v[1] + 1)
+            old_node = self.graph[coord]
+            self.graph[coord] = (old_node[0], old_node[1] + 1)
         return new_node.k
 
     def change_weight(self, coord, w):
