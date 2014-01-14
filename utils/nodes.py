@@ -1,65 +1,63 @@
-from direction_modifier import modifier
+from direction_modifier import modifier, d
 
 def sum_coord(point, mod):
     mod = modifier(mod, 1)
     return (point[0] + mod[0], point[1] + mod[1])
 
-d = {
-    "E": 0,
-    "NE": 1,
-    "N": 2,
-    "NO": 3,
-    "O": 4,
-    "SO": 5,
-    "S": 6,
-    "SE": 7,
-}
-
 class Graph(object):
-    def __init__(self):
+    def __init__(self, x, y):
         self.graph = {}
-        self.graph[(0, 0)] = 1
+        self.graph[(x, y)] = (0, 1)
 
     def __getitem__(self, item):
         return self.graph[item]
 
-    def add_node(self, coord, way):
+    def add_node(self, coord, way, probe):
         way = d[way]
-        new_node = Node(sum_coord(coord, way), 1)
+        new_node = Node(sum_coord(coord, way), probe)
         if not self.graph.has_key(new_node.k):
             self.graph[new_node.k] = new_node.v
         else:
-            self.graph[new_node.k] = new_node.v + 1
+            self.graph[new_node.k] = (new_node.v[0], new_node.v[1] + 1)
+        return new_node.k
+
+    def add_node_coord(self, coord):
+        new_node = Node(coord, 0)
+        if not self.graph.has_key(new_node.k):
+            self.graph[new_node.k] = new_node.v
+        else:
+            self.graph[new_node.k] = (new_node.v[0], new_node.v[1] + 1)
         return new_node.k
 
     def change_weight(self, coord, w):
-        self.graph[coord] = w
+        self.graph[coord] = (w, self.graph[coord][1])
 
     def print_graph(self):
         for node in self.graph:
             print node, ": ", self.graph[node]
 
-    def way(self, coord, way):
+    def goto(self, coord, way):
         new_coord = sum_coord(coord, d[way])
         return self.graph[new_coord] if self.graph.has_key(new_coord) else -1
 
 class Node(object):
     def __init__(self, k, weight):
         self.k = k
-        self.v = weight
+        self.v = (weight, 1)
 
 
 
-graph = Graph()
-last_node = (0, 0)
-graph.add_node(last_node, "E")
-last_node = graph.add_node(last_node, "S")
-last_node = graph.add_node(last_node, "SE")
-last_node = graph.add_node(last_node, "NO")
-last_node = graph.add_node(last_node, "NO")
-last_node = graph.add_node(last_node, "N")
-last_node = graph.add_node(last_node, "NE")
-print last_node
-graph.print_graph()
-graph.change_weight((1, 0), 12)
-print graph.way(last_node, "NE")
+#graph = Graph(12, 32)
+#graph.print_graph()
+#last_node = (12, 32)
+#graph.change_weight((12, 32), 14)
+#last_node = graph.add_node(last_node, "E", 13)
+#last_node = graph.add_node(last_node, "S", 12)
+#last_node = graph.add_node(last_node, "SE", 11)
+#last_node = graph.add_node(last_node, "NO", 10)
+#last_node = graph.add_node(last_node, "NO", 9)
+#last_node = graph.add_node(last_node, "N", 8)
+#last_node = graph.add_node(last_node, "NE", 7)
+#print graph[(12, 32)][0]
+#graph.print_graph()
+#print graph.goto(last_node, "NE")

@@ -1,20 +1,8 @@
-from utils.direction_modifier import void_directions, get_direction
-
-d = {
-    "E": 0,
-    "NE": 1,
-    "N": 2,
-    "NO": 3,
-    "O": 4,
-    "SO": 5,
-    "S": 6,
-    "SE": 7,
-}
+from utils.direction_modifier import void_directions, get_direction, d
 
 
 def search_far_calibration(kb, actual_position, distances, drone):
-    x = actual_position[0]
-    y = actual_position[1]
+    x, y = actual_position
     STEP = len(distances)
 
     # Calibrazione non effettuata
@@ -82,12 +70,16 @@ def change_strategy(drone):
             # Se il punto e' accessibile, e non e' il punto stesso in cui sono partito
             # viene aggiunto all'array
 
-            if x_index >= 0 and x_index < len(drone.kb[0]) and y_index >= 0 and y_index < len(drone.kb[0]):
+            if x_index >= 0 and x_index < len(drone.graph[0]) and y_index >= 0 and y_index < len(drone.graph[0]):
                 if x_index != x or y_index != y:
 
                     # Questo array conterra' tutti i punti adiacenti ed accessibili
+                    try:
+                        close_distances.append([drone.kb[(x_index, y_index)][0], x_index, y_index])
+                    except:
+                        pass
 
-                    close_distances.append([drone.graph[x_index][y_index], x_index, y_index])
+
 
     # Vado verso il primo dei punti in cui sono passato meno volte
 

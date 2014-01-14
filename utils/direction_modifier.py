@@ -21,6 +21,18 @@ get_directions = {
 }
 
 
+d = {
+    "E": 0,
+    "NE": 1,
+    "N": 2,
+    "NO": 3,
+    "O": 4,
+    "SO": 5,
+    "S": 6,
+    "SE": 7,
+}
+
+
 def get_direction(x_mod, y_mod):
     return get_directions[x_mod, y_mod]
 
@@ -34,7 +46,7 @@ def void_directions(x, y, direction, kb, drone, long):
     # il fix mi rimanda in quella opposta, e svuoto l'array distances in modo
     # da riniziare da capo la calibrazione in un punto piu conveninete
     try_x_dir, try_y_dir = modifier(direction, long)
-    new_x_dir, new_y_dir = fix_direction(x, y, direction, long, kb)
+    new_x_dir, new_y_dir = fix_direction(x, y, direction, long, drone.graph)
     new_x, new_y = x + new_x_dir, y + new_y_dir
     drone.distances = [] if new_x != x + try_x_dir or new_y != y + try_y_dir else drone.distances
     return new_x, new_y
@@ -52,3 +64,4 @@ def fix_direction(x_position, y_position, direction, step, world):
     new_y_direction = y_direction * (-1) if new_y < 0 or new_y > border else y_direction
 
     return new_x_direction, new_y_direction
+
