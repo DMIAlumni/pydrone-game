@@ -1,4 +1,4 @@
-from utils.matrix_generator import print_matrix, matrix_generator, world_generator_with_knowledge
+from utils.matrix_generator import print_matrix, matrix_generator
 from utils.nodes import Graph
 from algorithm import search_far_calibration, change_strategy
 
