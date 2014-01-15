@@ -1,5 +1,5 @@
 from utils.direction_modifier import void_directions, get_direction, d
-
+import random
 
 def search_far_calibration(kb, actual_position, distances, drone):
     x, y = actual_position
@@ -34,14 +34,32 @@ def search_far_calibration(kb, actual_position, distances, drone):
 
         drone.last_direction = d[direction]
 
-    if distances[-1] > 2.0:
+    #Questo e' uno dei parametri che pesano sull'efficenza
+    # Non toccare ora
+    if distances[-1] > 1.0:
         return go_far(kb, x, y, drone)
     else:
         return search_close(kb, x, y, drone)
 
 
 def go_far(kb, x, y, drone):
-    drone.distances = [] if len(drone.distances) > 2 and drone.distances[-1] >= drone.distances[-2] else drone.distances
+    dist_param = 1
+    if len(drone.distances) > 3 and (drone.distances[-2] - drone.distances[-1]) < dist_param:
+        if not (drone.distances[-2] - drone.distances[-1]) == 1:
+            if drone.last_modifier == 0:
+                rnd = random.random()
+                rnd = 1 if rnd < 0.5 else -1
+                drone.last_modifier = rnd
+            if not drone.flipflop:
+                drone.last_direction = (drone.last_direction + drone.last_modifier) % 8
+                drone.flipflop = True
+            else:
+                if drone.distances[-1] > drone.distances[-2]:
+                    drone.last_direction = (drone.last_direction + 3) % 8
+                else:
+                    drone.last_direction = (drone.last_direction + 1) % 8
+                drone.flipflop = False
+    #drone.distances = [] if len(drone.distances) > 2 and drone.distances[-1] >= drone.distances[-2] else drone.distances
     return void_directions(x, y, drone.last_direction, kb, drone, 1)
 
 

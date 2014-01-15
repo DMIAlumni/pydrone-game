@@ -6,6 +6,8 @@ from algorithm import search_far_calibration, change_strategy
 class Drone(object):
     def __init__(self, world_size, x, y):
         #self.kb = self.generate_kb(world_size)
+        self.flipflop = False
+        self.last_modifier = 0
         self.graph = matrix_generator(world_size)
         self.graph[x][y] = 1
         self.actual_position = (x, y)
@@ -26,7 +28,8 @@ class Drone(object):
 
     def strategy(self):
         x, y = search_far_calibration(self.kb, self.actual_position, self.distances, self)
-        if self.graph[x][y] <= 1:
+        #Questo e' uno dei parametri che pesano sull'efficenza
+        if self.graph[x][y] <= 1.0:
             return x, y
         else:
             return change_strategy(self)
