@@ -1,5 +1,6 @@
 class Game(object):
-    def __init__(self, world, drones):
+    def __init__(self, world, drones, knowledge):
+        self.k = knowledge
         self.world = world
         self.drones = drones
         self.asset_not_found = True
@@ -9,8 +10,12 @@ class Game(object):
         while(self.asset_not_found):
             #raw_input()
             drone = self.next_drone()
-            #drone.probe(self.world[drone.actual_position[0]][drone.actual_position[1]])
-            drone.print_world()
+
+            # Se il drone chiamato non ha il knowledge, faccio la probe
+
+            if not self.k:
+                drone.probe(self.world[drone.actual_position[0]][drone.actual_position[1]])
+            #drone.print_world()
             x, y = drone.strategy()
             drone.move(x, y)
             i += 1
@@ -27,5 +32,7 @@ class Game(object):
         return nextdrone
 
     def asset_found(self, x, y):
-        #return self.world[x][y] == -1
-        return self.world[(x, y)][0] == -1
+        if self.k:
+            return self.world[(x, y)][0] == -1
+        else:
+            return self.world[x][y] == -1

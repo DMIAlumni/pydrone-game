@@ -9,7 +9,7 @@ class Drone(object):
         self.graph = matrix_generator(world_size)
         self.graph[x][y] = 1
         self.actual_position = (x, y)
-        self.fuel = 200
+        self.fuel = 2000
         self.distances = []
         self.last_direction = 0
         #New init, using graph
