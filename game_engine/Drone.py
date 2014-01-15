@@ -29,7 +29,7 @@ class Drone(object):
     def strategy(self):
         x, y = search_far_calibration(self.kb, self.actual_position, self.distances, self)
         #Questo e' uno dei parametri che pesano sull'efficenza
-        if self.graph[x][y] <= 1.0:
+        if self.graph[x][y] <= 1.5:
             return x, y
         else:
             return change_strategy(self)
