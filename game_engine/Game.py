@@ -7,9 +7,9 @@ class Game(object):
     def start_game(self):
         i = 0
         while(self.asset_not_found):
-            raw_input()
+            #raw_input()
             drone = self.next_drone()
-            drone.probe(self.world[drone.actual_position[0]][drone.actual_position[1]])
+            #drone.probe(self.world[drone.actual_position[0]][drone.actual_position[1]])
             drone.print_world()
             x, y = drone.strategy()
             drone.move(x, y)
@@ -27,4 +27,5 @@ class Game(object):
         return nextdrone
 
     def asset_found(self, x, y):
-        return self.world[x][y] == -1
+        #return self.world[x][y] == -1
+        return self.world[(x, y)][0] == -1
