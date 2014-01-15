@@ -22,6 +22,7 @@ def world_generator(size, x_end, y_end, knowledge):
         matrix[x_end][y_end] = -1
         return matrix
 
+
 def world_generator_with_knowledge(size, x_end, y_end):
     world = Graph(x_end, y_end)
     for i in range(size):
@@ -31,9 +32,11 @@ def world_generator_with_knowledge(size, x_end, y_end):
     world.change_weight((x_end, y_end), -1)
     return world
 
+
 def matrix_generator(size):
     matrix = [[0 for i in range(size)] for j in range(size)]
     return matrix
+
 
 def print_matrix(matrix):
     os.system("clear")

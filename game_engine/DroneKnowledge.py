@@ -15,9 +15,6 @@ class DroneKnowledge(object):
         self.fuel -= 1
         self.actual_position = (x, y)
 
-    def probe(self, distance):
-        return 0
-
     def print_world(self):
         pass
 

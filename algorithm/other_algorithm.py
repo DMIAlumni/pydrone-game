@@ -1,6 +1,7 @@
 from utils.direction_modifier import void_directions, get_direction, d
 import random
 
+
 def greedy_generic(drone):
     x, y = drone.actual_position
     available = []
@@ -11,4 +12,4 @@ def greedy_generic(drone):
                         available.append([drone.kb[(x_index, y_index)][0], x_index, y_index])
 
     go_x, go_y = min(available)[1], min(available)[2]
-    return void_directions(x, y, get_direction(go_x - x, go_y - y ) , drone.kb, drone, 1)
+    return void_directions(x, y, get_direction(go_x - x, go_y - y), drone.kb, drone, 1)
