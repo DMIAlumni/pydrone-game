@@ -6,17 +6,15 @@ def search_far_calibration(kb, actual_position, distances, drone):
     STEP = len(distances)
 
     # Calibrazione non effettuata
-    if STEP <= 3:
+    if STEP <= 2:
         if STEP == 1:
             direction = d["E"]
         elif STEP == 2:
             direction = d["N"]
-        elif STEP == 3:
-            direction = d["SO"]
         return void_directions(x, y, direction, kb, drone, 1)
 
     # Calibrazione effettuata, inizio a muovermi
-    elif STEP == 4:
+    elif STEP == 3:
 
         # Le tre misurazioni della "triangolazione" per capire
         # il quadrante in cui si trova il punto d'arrivo
@@ -43,7 +41,7 @@ def search_far_calibration(kb, actual_position, distances, drone):
 
 
 def go_far(kb, x, y, drone):
-    drone.distances = [] if len(drone.distances) > 4 and drone.distances[-1] > drone.distances[-2] else drone.distances
+    drone.distances = [] if len(drone.distances) > 2 and drone.distances[-1] >= drone.distances[-2] else drone.distances
     return void_directions(x, y, drone.last_direction, kb, drone, 1)
 
 

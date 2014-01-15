@@ -26,7 +26,7 @@ class Drone(object):
 
     def strategy(self):
         x, y = search_far_calibration(self.kb, self.actual_position, self.distances, self)
-        if self.graph[x][y] <= 2:
+        if self.graph[x][y] <= 1:
             return x, y
         else:
             return change_strategy(self)

@@ -48,20 +48,3 @@ class Node(object):
     def __init__(self, k, weight):
         self.k = k
         self.v = (weight, 1)
-
-
-
-#graph = Graph(12, 32)
-#graph.print_graph()
-#last_node = (12, 32)
-#graph.change_weight((12, 32), 14)
-#last_node = graph.add_node(last_node, "E", 13)
-#last_node = graph.add_node(last_node, "S", 12)
-#last_node = graph.add_node(last_node, "SE", 11)
-#last_node = graph.add_node(last_node, "NO", 10)
-#last_node = graph.add_node(last_node, "NO", 9)
-#last_node = graph.add_node(last_node, "N", 8)
-#last_node = graph.add_node(last_node, "NE", 7)
-#print graph[(12, 32)][0]
-#graph.print_graph()
-#print graph.goto(last_node, "NE")
