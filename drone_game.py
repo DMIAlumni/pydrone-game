@@ -11,13 +11,13 @@ from utils.matrix_generator import world_generator
 
 # Algorithm parameters
 # ...
-def main(size, x, y, drone_x, drone_y):
+def main(size, x, y, drone_x, drone_y, knowledge=False):
     MATRIX_SIZE = int(size)
     END_X = int(x)
     END_Y = int(y)
     START_X = int(drone_x)
     START_Y = int(drone_y)
-    KNOWLEDGE = False
+    KNOWLEDGE = knowledge
     world = world_generator(MATRIX_SIZE, END_X, END_Y, KNOWLEDGE)
     if KNOWLEDGE:
         drones = [DroneKnowledge(world, START_X, START_Y, MATRIX_SIZE)]
