@@ -54,6 +54,10 @@ def stats(results):
     avg = sum / len(results)
     varianza = fsum([(x - avg)**2 for x in results]) / len(results)
     scarto = fpformat.fix(sqrt(varianza), 2)
+    valori = set(results)
+    frequenze = dict(zip(valori, [results.count(v) for v in valori]))
+    sorted_frequenze = sorted(frequenze, key=frequenze.get, reverse=True)
+    sorted_frequenze = sorted_frequenze[:10]
     print "-------------------------------------------------"
     print "Statistiche:"
     print "Numero di test eseguiti:\t\t " + str(len(results))
@@ -61,7 +65,15 @@ def stats(results):
     print "Caso peggiore:\t\t\t\t " + str(worst)
     print "Media aritmetica dei risultati:\t\t " + str(avg)
     print "Scarto quadratico medio:\t\t " + str(scarto)
-
+    print "I dieci risultati piu' riscontrati:"
+    print "Costo:\tOttenuto:\tSotto la media?"
+    for el in sorted_frequenze:
+        sotto = "media"
+        if el < avg:
+            sotto = "si"
+        elif el > avg:
+            sotto = "no"
+        print str(el) + "\t" + str(frequenze[el]) + "\t\t" + sotto
 
 results = tests(MATRIX_SIZE)
 if not raw_input("Vuoi salvare i risultati? [S/n]") == "n":
