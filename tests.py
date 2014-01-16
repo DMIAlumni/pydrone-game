@@ -5,8 +5,6 @@ from math import sqrt, fsum
 from sys import argv
 import drone_game
 
-script, size = argv
-MATRIX_SIZE = int(size)
 
 def tests(size):
     results = []
@@ -75,8 +73,22 @@ def stats(results):
             sotto = "no"
         print str(el) + "\t" + str(frequenze[el]) + "\t\t" + sotto
 
-results = tests(MATRIX_SIZE)
-if not raw_input("Vuoi salvare i risultati? [S/n]") == "n":
-    save_results(results, MATRIX_SIZE)
-stats(results)
+def stat_from_file(file):
+    f = open(file,'r')
+    results = [int(x) for x in f.readlines()]
+    f.close()
+    stats(results)
+
+
+script, size = argv
+MATRIX_SIZE = int(size)
+ans = raw_input("[E]seguire i test, o [A]nalizzare un file? ")
+if ans == "E" or ans == "e":
+    results = tests(MATRIX_SIZE)
+    if not raw_input("Vuoi salvare i risultati? [S/n]") == "n":
+        save_results(results, MATRIX_SIZE)
+    stats(results)
+elif ans == "A" or ans == "a":
+    file = str(raw_input("Nome del file: "))
+    stat_from_file(file)
 
