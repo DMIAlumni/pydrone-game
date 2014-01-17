@@ -41,5 +41,5 @@ nosetests.xml
 #Tests
 count*
 tests.sh*
-test_*
+*.txt
 output*

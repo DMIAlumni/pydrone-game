@@ -1,8 +1,8 @@
 import sys
+import os
 import fpformat
 from StringIO import StringIO
 from math import sqrt, fsum
-from sys import argv
 import drone_game
 import argparse
 
@@ -46,7 +46,6 @@ def tests(size, knowledge=False, reduxed=False):
     return results
 
 def save_results(results, name):
-    size = len(results)
     print "Saving results in " + str(name)
     file = open(name, 'w')
     for ris in results:
@@ -112,12 +111,13 @@ def make_test():
     ratio_scarto = fpformat.fix((float(scarto) / float(opt_scarto)), 2)
 
     print "--------------------------------------------------------------------------------------"
-    print "Statistiche:\t\t\t\tOffline\t\tOnline\t\tRapporto"
-    print "Numero di test eseguiti:\t\t " + str(len(results)) + "\t\t" + str(len(optimal))
-    print "Carburante esaurito:\t\t\t " + str(not_found) + "\t\t" + str(opt_not_found)
-    print "Caso peggiore:\t\t\t\t " + str(worst) + "\t\t" + str(opt_worst) + "\t\t" + str(ratio_worst)
-    print "Media aritmetica dei risultati:\t\t " + str(avg) + "\t\t" + str(opt_avg) + "\t\t" + str(ratio_avg)
-    print "Scarto quadratico medio:\t\t " + str(scarto) + "\t\t" + str(opt_scarto) + "\t\t" + str(ratio_scarto)
+    print "|Statistiche:\t\t\t\tOffline\t\tOnline\t\tRapporto"
+    print "|Numero di test eseguiti:\t\t " + str(len(results)) + "\t\t" + str(len(optimal))
+    print "|Carburante esaurito:\t\t\t " + str(not_found) + "\t\t" + str(opt_not_found)
+    print "|Caso peggiore:\t\t\t\t " + str(worst) + "\t\t" + str(opt_worst) + "\t\t" + str(ratio_worst)
+    print "|Media aritmetica dei risultati:\t\t " + str(avg) + "\t\t" + str(opt_avg) + "\t\t" + str(ratio_avg)
+    print "|Scarto quadratico medio:\t\t " + str(scarto) + "\t\t" + str(opt_scarto) + "\t\t" + str(ratio_scarto)
+    print "--------------------------------------------------------------------------------------"
     print "I dieci risultati piu' riscontrati nell'algoritmo non ottimale:"
     print "Costo:\tOttenuto:\tSotto la media?"
     for el in sorted_frequenze:
@@ -137,4 +137,6 @@ def make_test():
 #            sotto = "no"
 #        print str(el) + "\t" + str(opt_frequenze[el]) + "\t\t" + sotto
 
+os.system("clear")
 make_test()
+raw_input()
