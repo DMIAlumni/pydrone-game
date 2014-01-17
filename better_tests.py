@@ -18,6 +18,7 @@ MATRIX_SIZE = args['s']
 OUTPUTFILE = args['save_output']
 INPUTFILE = args['input_file']
 
+
 def tests(size, knowledge=False, reduxed=False):
     results = []
     j = 0
@@ -33,8 +34,8 @@ def tests(size, knowledge=False, reduxed=False):
             for start_x in range(j, test_size):
                 for start_y in range(j, test_size):
                     # Mostro la percentuale di avanzamento dello script
-                    i = (counter * 100 / (test_size - j)**4)
-                    sys.stdout.write("\r%d%%" %i)
+                    i = (counter * 100 / (test_size - j) ** 4)
+                    sys.stdout.write("\r%d%%" % i)
                     sys.stdout.flush()
                     counter += 1
                     # Sopprimo lo stdout mentre eseguo lo script
@@ -44,6 +45,7 @@ def tests(size, knowledge=False, reduxed=False):
                     sys.stdout = actualstdout
     print
     return results
+
 
 def save_results(results, name):
     print "Saving results in " + str(name)
@@ -67,13 +69,14 @@ def stats(results):
     # Calculate the parameters
     size = len(results)
     avg = sum / size
-    varianza = fsum([(x - avg)**2 for x in results]) / size
+    varianza = fsum([(x - avg) ** 2 for x in results]) / size
     scarto = fpformat.fix(sqrt(varianza), 2)
     valori = set(results)
     frequenze = dict(zip(valori, [results.count(v) for v in valori]))
     sorted_frequenze = sorted(frequenze, key=frequenze.get, reverse=True)
     sorted_frequenze = sorted_frequenze[:10]
     return not_found, worst, avg, scarto, frequenze, sorted_frequenze
+
 
 def make_test():
 

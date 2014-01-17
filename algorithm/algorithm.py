@@ -1,6 +1,7 @@
 from utils.direction_modifier import void_directions, get_direction, d
 import random
 
+
 def search_far_calibration(kb, actual_position, distances, drone):
     x, y = actual_position
     STEP = len(distances)

@@ -21,8 +21,8 @@ def tests(size, knowledge=False):
         for end_y in range(j, test_size):
             for start_x in range(j, test_size):
                 for start_y in range(j, test_size):
-                    i = (counter * 100 / (test_size - j)**4)
-                    sys.stdout.write("\r%d%%" %i)
+                    i = (counter * 100 / (test_size - j) ** 4)
+                    sys.stdout.write("\r%d%%" % i)
                     sys.stdout.flush()
                     counter += 1
                     actualstdout = sys.stdout
@@ -31,6 +31,7 @@ def tests(size, knowledge=False):
                     sys.stdout = actualstdout
     print
     return results
+
 
 def save_results(results, size):
     print "Saving the results in test_" + str(size) + ".txt"
@@ -51,10 +52,11 @@ def first_stats(results):
             notfound += 1
     return sum, notfound, worst
 
+
 def stats(results, optimal=None):
     sum, notfound, worst = first_stats(results)
     avg = sum / len(results)
-    varianza = fsum([(x - avg)**2 for x in results]) / len(results)
+    varianza = fsum([(x - avg) ** 2 for x in results]) / len(results)
     scarto = fpformat.fix(sqrt(varianza), 2)
     valori = set(results)
     frequenze = dict(zip(valori, [results.count(v) for v in valori]))
@@ -62,8 +64,8 @@ def stats(results, optimal=None):
     sorted_frequenze = sorted_frequenze[:10]
     if optimal:
         opt_sum, opt_nf, opt_worst = first_stats(optimal)
-        opt_avg = opt_sum/len(optimal)
-        opt_scarto = fpformat.fix(sqrt(fsum([(x - opt_avg)**2 for x in optimal]) / len(optimal)), 2)
+        opt_avg = opt_sum / len(optimal)
+        opt_scarto = fpformat.fix(sqrt(fsum([(x - opt_avg) ** 2 for x in optimal]) / len(optimal)), 2)
         ratio_avg = avg / opt_avg
         ratio_worst = worst / opt_worst
         ratio_scarto = fpformat.fix((float(scarto) / float(opt_scarto)), 2)
@@ -85,8 +87,9 @@ def stats(results, optimal=None):
             sotto = "no"
         print str(el) + "\t" + str(frequenze[el]) + "\t\t" + sotto
 
+
 def stat_from_file(file):
-    f = open(file,'r')
+    f = open(file, 'r')
     results = [int(x) for x in f.readlines()]
     f.close()
     stats(results)
@@ -105,4 +108,3 @@ stats(results, results_optimal)
 #elif ans == "A" or ans == "a":
 #    file = str(raw_input("Nome del file: "))
 #    stat_from_file(file)
-

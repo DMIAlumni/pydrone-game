@@ -7,6 +7,7 @@ from math import sqrt, fsum
 import drone_game
 import glob
 
+
 def tests(size, screen, knowledge=False, reduxed=False):
     results = []
     j = 0
@@ -23,8 +24,8 @@ def tests(size, screen, knowledge=False, reduxed=False):
             for start_x in range(j, test_size):
                 for start_y in range(j, test_size):
                     # Mostro la percentuale di avanzamento dello script
-                    i = (counter * 100 / (test_size - j)**4)
-                    screen.addstr(4, 2, str(i)+"%")
+                    i = (counter * 100 / (test_size - j) ** 4)
+                    screen.addstr(4, 2, str(i) + "%")
                     screen.refresh()
                     counter += 1
                     # Sopprimo lo stdout mentre eseguo lo script
@@ -35,6 +36,7 @@ def tests(size, screen, knowledge=False, reduxed=False):
     print
     return results
 
+
 def save_results(results, name, screen):
     prepare_window(screen)
     get_param("Saving results in " + str(name), screen, True)
@@ -42,6 +44,7 @@ def save_results(results, name, screen):
     for ris in results:
         print>>file, ris
     file.close()
+
 
 def stats(results):
     # Average, fails and worst case
@@ -57,7 +60,7 @@ def stats(results):
     # Calculate the parameters
     size = len(results)
     avg = sum / size
-    varianza = fsum([(x - avg)**2 for x in results]) / size
+    varianza = fsum([(x - avg) ** 2 for x in results]) / size
     scarto = fpformat.fix(sqrt(varianza), 2)
     valori = set(results)
     frequenze = dict(zip(valori, [results.count(v) for v in valori]))
@@ -65,9 +68,11 @@ def stats(results):
     sorted_frequenze = sorted_frequenze[:10]
     return not_found, worst, avg, scarto, frequenze, sorted_frequenze
 
+
 def prepare_window(screen):
     screen.clear()
     screen.border(0)
+
 
 def get_matrix_size(screen):
     prepare_window(screen)
@@ -84,14 +89,15 @@ def get_matrix_size(screen):
     except:
         return get_matrix_size(screen)
 
+
 def get_file(string, screen, ms):
     x = None
     curses.noecho()
     curses.cbreak()
     curses.curs_set(0)
     files = glob.glob('./*' + str(ms) + '*.txt')
-    h = curses.A_REVERSE #h is the coloring for a highlighted menu option
-    n = curses.A_NORMAL #n is the coloring for a non highlighted menu option
+    h = curses.A_REVERSE  # h is the coloring for a highlighted menu option
+    n = curses.A_NORMAL  # n is the coloring for a non highlighted menu option
     pos = 0
     old_pos = 1
     while x != ord('\n'):
@@ -104,25 +110,27 @@ def get_file(string, screen, ms):
             i = 0
             for file in files:
                 style = n if i != pos else h
-                screen.addstr(cnt , 2 , "%s" % (file), style)
+                screen.addstr(cnt, 2, "%s" % (file), style)
                 cnt += 2
                 i += 1
             style = n
-            style = h if pos==len(files) else n
+            style = h if pos == len(files) else n
             screen.addstr(cnt, 2, "%s" % ("Altro file"), style)
-            style = h if pos==len(files) + 1 else n
+            style = h if pos == len(files) + 1 else n
             screen.addstr(cnt + 2, 2, "%s" % ("Nessun file"), style)
             screen.refresh()
         x = screen.getch()
 
-        if x == 258: # down arrow
+        if x == 258:  # down arrow
             if pos < len(files) + 1:
                 pos += 1
-            else: pos = 0
-        elif x == 259: # up arrow
+            else:
+                pos = 0
+        elif x == 259:  # up arrow
             if pos > 0:
                 pos += -1
-            else: pos = len(files) + 1
+            else:
+                pos = len(files) + 1
 
      # return index of the selected item
     if pos == len(files):
@@ -140,7 +148,6 @@ def get_file(string, screen, ms):
     return file
 
 
-
 def get_param(prompt_string, screen, cbreak=False):
     prepare_window(screen)
     curses.echo()
@@ -150,6 +157,7 @@ def get_param(prompt_string, screen, cbreak=False):
     screen.refresh()
     input = screen.getch()
     return input
+
 
 def close(screen):
     curses.cbreak()
@@ -163,6 +171,7 @@ def close(screen):
     else:
         close(screen)
 
+
 def main(screen):
     MATRIX_SIZE = get_matrix_size(screen)
     optimal_file = "OPTIMAL-" + str(MATRIX_SIZE) + ".txt"
@@ -173,7 +182,7 @@ def main(screen):
         f = open(optimal_file, 'r')
         optimal = [int(x) for x in f.readlines()]
         f.close()
-        get_param( "Trovato file con i risultati dell'algoritmo ottimale! (" + optimal_file + ")", screen, True)
+        get_param("Trovato file con i risultati dell'algoritmo ottimale! (" + optimal_file + ")", screen, True)
     except:
         optimal = tests(MATRIX_SIZE, screen, knowledge=True, reduxed=RIDOTTI)
         save_results(optimal, optimal_file, screen)
@@ -187,7 +196,7 @@ def main(screen):
             get_param("File non trovato! Rieseguo i test", screen, True)
             results = tests(MATRIX_SIZE, screen, knowledge=False, reduxed=RIDOTTI)
     else:
-        results = tests(MATRIX_SIZE, screen,  knowledge=False, reduxed=RIDOTTI)
+        results = tests(MATRIX_SIZE, screen, knowledge=False, reduxed=RIDOTTI)
     if OUTPUTFILE:
         save_results(results, OUTPUTFILE, screen)
 
@@ -199,12 +208,12 @@ def main(screen):
     screen.clear()
     screen.border(0)
     screen.addstr(2, 2, "Statistiche:\t\t\t\tOffline\t\tOnline\t\tRapporto")
-    screen.addstr(4, 2,  "Numero di test eseguiti:\t\t " + str(len(results)) + "\t\t" + str(len(optimal)))
-    screen.addstr(6, 2,  "Carburante esaurito:\t\t\t " + str(not_found) + "\t\t" + str(opt_not_found))
-    screen.addstr(8, 2,  "Caso peggiore:\t\t\t " + str(worst) + "\t\t" + str(opt_worst) + "\t\t" + str(ratio_worst))
-    screen.addstr(10, 2,  "Media aritmetica dei risultati:\t " + str(avg) + "\t\t" + str(opt_avg) + "\t\t" + str(ratio_avg))
+    screen.addstr(4, 2, "Numero di test eseguiti:\t\t " + str(len(results)) + "\t\t" + str(len(optimal)))
+    screen.addstr(6, 2, "Carburante esaurito:\t\t\t " + str(not_found) + "\t\t" + str(opt_not_found))
+    screen.addstr(8, 2, "Caso peggiore:\t\t\t " + str(worst) + "\t\t" + str(opt_worst) + "\t\t" + str(ratio_worst))
+    screen.addstr(10, 2, "Media aritmetica dei risultati:\t " + str(avg) + "\t\t" + str(opt_avg) + "\t\t" + str(ratio_avg))
     screen.addstr(12, 2, "Scarto quadratico medio:\t\t " + str(scarto) + "\t\t" + str(opt_scarto) + "\t\t" + str(ratio_scarto))
-    screen.addstr(14, 1, "-"*(screen.getmaxyx()[1]-2))
+    screen.addstr(14, 1, "-" * (screen.getmaxyx()[1] - 2))
     screen.addstr(16, 2, "I dieci risultati piu' riscontrati nell'algoritmo non ottimale:")
     screen.addstr(18, 2, "Costo:\tOttenuto:\tSotto la media?")
     cnt = 20
@@ -220,5 +229,5 @@ def main(screen):
     print MATRIX_SIZE
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     curses.wrapper(main)

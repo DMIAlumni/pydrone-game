@@ -6,11 +6,10 @@ from utils.matrix_generator import world_generator
 # Global parameters
 #script, size, x, y, drone_x, drone_y = argv
 
-
-
-
 # Algorithm parameters
 # ...
+
+
 def main(size, x, y, drone_x, drone_y, knowledge=False):
     MATRIX_SIZE = int(size)
     END_X = int(x)
