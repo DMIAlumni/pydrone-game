@@ -1,4 +1,3 @@
-from os import system
 import curses
 import sys
 import fpformat
@@ -82,7 +81,7 @@ def get_matrix_size(screen):
     screen.addstr(2, 2, "Enter matrix size (integer):")
     size = screen.getstr(4, 2, 60)
     try:
-        if int(size) > 4:
+        if int(size) > 5:
             return int(size)
         else:
             return get_matrix_size(screen)
@@ -225,6 +224,7 @@ def main(screen):
             sotto = "no"
         screen.addstr(cnt, 2, str(el) + "\t\t" + str(frequenze[el]) + "\t\t" + sotto)
         cnt += 2
+    screen.addstr(cnt, 2, "Premere q per uscire")
     close(screen)
     print MATRIX_SIZE
 
