@@ -176,8 +176,8 @@ def main(screen):
     MATRIX_SIZE = get_matrix_size(screen)
     optimal_file = "OPTIMAL-" + str(MATRIX_SIZE) + ".txt"
     RIDOTTI = True if get_param("Calcoli ridotti? [s/N]", screen, True) == 115 else False
-    INPUTFILE = get_file("File da cui prendere i risultati per i calcoli (lascia vuoto per eseguire i calcoli)", screen, MATRIX_SIZE)
-    OUTPUTFILE = get_file("File in cui salvare i risultati (lascia vuoto per non salvare)", screen, MATRIX_SIZE)
+    INPUTFILE = get_file("File da cui prendere i risultati per i calcoli ('Nessun file' per eseguire i calcoli)", screen, MATRIX_SIZE)
+    OUTPUTFILE = get_file("File in cui salvare i risultati ('Nessun file' per non salvare)", screen, MATRIX_SIZE)
     try:
         f = open(optimal_file, 'r')
         optimal = [int(x) for x in f.readlines()]
