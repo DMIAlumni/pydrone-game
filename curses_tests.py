@@ -35,8 +35,9 @@ def tests(size, screen, knowledge=False, reduxed=False):
     print
     return results
 
-def save_results(results, name):
-    print "Saving results in " + str(name)
+def save_results(results, name, screen):
+    prepare_window(screen)
+    get_param("Saving results in " + str(name), screen, True)
     file = open(name, 'w')
     for ris in results:
         print>>file, ris
@@ -75,24 +76,67 @@ def get_matrix_size(screen):
     curses.curs_set(0)
     screen.addstr(2, 2, "Enter matrix size (integer):")
     size = screen.getstr(4, 2, 60)
-    if int(size):
-        return int(size)
-    else:
-        get_matrix_size(screen)
+    try:
+        if int(size) > 4:
+            return int(size)
+        else:
+            return get_matrix_size(screen)
+    except:
+        return get_matrix_size(screen)
 
 def get_file(string, screen, ms):
-    prepare_window(screen)
-    curses.echo()
-    curses.nocbreak()
+    x = None
+    curses.noecho()
+    curses.cbreak()
     curses.curs_set(0)
-    screen.addstr(2, 2, string)
-    screen.addstr(4, 2, "(suggerimenti: possibili file trovati nella cartella attuale)")
-    cnt = 6
-    for ris in glob.glob('./*' + str(ms) + '*.txt'):
-        screen.addstr(cnt, 2, ris)
-        cnt += 2
-    screen.refresh()
-    file = screen.getstr(cnt, 2, 60)
+    files = glob.glob('./*' + str(ms) + '*.txt')
+    h = curses.A_REVERSE #h is the coloring for a highlighted menu option
+    n = curses.A_NORMAL #n is the coloring for a non highlighted menu option
+    pos = 0
+    old_pos = 1
+    while x != ord('\n'):
+        cnt = 6
+        prepare_window(screen)
+        if pos != old_pos:
+            old_pos = pos
+            screen.addstr(2, 2, string)
+            screen.addstr(4, 2, "(suggerimenti: possibili file trovati nella cartella attuale)")
+            i = 0
+            for file in files:
+                style = n if i != pos else h
+                screen.addstr(cnt , 2 , "%s" % (file), style)
+                cnt += 2
+                i += 1
+            style = n
+            style = h if pos==len(files) else n
+            screen.addstr(cnt, 2, "%s" % ("Altro file"), style)
+            style = h if pos==len(files) + 1 else n
+            screen.addstr(cnt + 2, 2, "%s" % ("Nessun file"), style)
+            screen.refresh()
+        x = screen.getch()
+
+        if x == 258: # down arrow
+            if pos < len(files) + 1:
+                pos += 1
+            else: pos = 0
+        elif x == 259: # up arrow
+            if pos > 0:
+                pos += -1
+            else: pos = len(files) + 1
+
+     # return index of the selected item
+    if pos == len(files):
+        prepare_window(screen)
+        curses.echo()
+        curses.curs_set(1)
+        screen.addstr(2, 2, string)
+        file = screen.getstr(4, 2, 60)
+        curses.noecho()
+        curses.curs_set(0)
+    elif pos == len(files) + 1:
+        file = ""
+    else:
+        file = files[pos]
     return file
 
 
@@ -132,7 +176,7 @@ def main(screen):
         get_param( "Trovato file con i risultati dell'algoritmo ottimale! (" + optimal_file + ")", screen, True)
     except:
         optimal = tests(MATRIX_SIZE, screen, knowledge=True, reduxed=RIDOTTI)
-        save_results(optimal, optimal_file)
+        save_results(optimal, optimal_file, screen)
     if not INPUTFILE == "":
         try:
             f = open(INPUTFILE, 'r')
@@ -145,7 +189,7 @@ def main(screen):
     else:
         results = tests(MATRIX_SIZE, screen,  knowledge=False, reduxed=RIDOTTI)
     if OUTPUTFILE:
-        save_results(results, OUTPUTFILE)
+        save_results(results, OUTPUTFILE, screen)
 
     not_found, worst, avg, scarto, frequenze, sorted_frequenze = stats(results)
     opt_not_found, opt_worst, opt_avg, opt_scarto, opt_frequenze, opt_sorted_frequenze = stats(optimal)
@@ -173,6 +217,7 @@ def main(screen):
         screen.addstr(cnt, 2, str(el) + "\t\t" + str(frequenze[el]) + "\t\t" + sotto)
         cnt += 2
     close(screen)
+    print MATRIX_SIZE
 
 
 if __name__=='__main__':
