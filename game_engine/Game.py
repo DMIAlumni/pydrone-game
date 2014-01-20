@@ -10,9 +10,7 @@ class Game(object):
         while(self.asset_not_found):
             #raw_input()
             drone = self.next_drone()
-
             # Se il drone chiamato non ha il knowledge, faccio la probe
-
             if not self.k:
                 drone.probe(self.world[drone.actual_position[0]][drone.actual_position[1]])
             #drone.print_world()

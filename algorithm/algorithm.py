@@ -38,9 +38,17 @@ def search_far_calibration(kb, actual_position, distances, drone):
     #Questo e' uno dei parametri che pesano sull'efficenza
     # Non toccare ora
     if distances[-1] > 1.0:
-        return go_far(kb, x, y, drone)
+        go_x, go_y = go_far(kb, x, y, drone)
     else:
-        return search_close(kb, x, y, drone)
+        go_x, go_y = search_close(kb, x, y, drone)
+
+    try:
+        if drone.kb[(go_x, go_y)][1] > 2:
+            go_x, go_y = change_strategy(drone)
+    except:
+        pass
+    return go_x, go_y
+
 
 
 def go_far(kb, x, y, drone):
