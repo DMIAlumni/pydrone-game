@@ -11,22 +11,23 @@ class Graph(object):
         self.graph = {}
         self.graph[(x, y)] = (0, 1, 0)
         self.counter = 0
+        # Set this to the same amount of Drone.fuel to make
+        # the algorithm behave like if there is no optimization
+        # If it's less, it will delete nodes when the graph becomes
+        # big, saving memory, with a variable increase of the cost
+        # of the search algorithm. 20 seemed to be a good choice for
+        # this parameter, for matrixes between 5 and 20 of size
+        # (obviously not deleting nodes is always better for calculations)
+        self.graph_max_length = 2000
 
     def __getitem__(self, item):
         return self.graph[item]
 
     def add_node_coord(self, coord):
-        # Set this to the same amount of Drone.fuel to make
-        # the algorithm behave like if there is no optimization
-        # If it's less, it will delete nodes when the graph becomes
-        # big, saving memory, with a variable increase of the cost
-        # of the search algorithm. 10 seemed to be a good choice for
-        # this parameter (obviously not deleting nodes is always better)
-        GRAPH_MAX_LENGTH = 2000
         self.counter += 1
-        if len(self.graph) > GRAPH_MAX_LENGTH:
+        if len(self.graph) > self.graph_max_length:
             for node in self.graph:
-                if self.graph[node][2] == (self.counter - GRAPH_MAX_LENGTH):
+                if self.graph[node][2] == (self.counter - self.graph_max_length):
                     self.graph.pop(node, None)
                     break
         new_node = Node(coord, 1, self.counter)
