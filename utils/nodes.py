@@ -9,31 +9,36 @@ def sum_coord(point, mod):
 class Graph(object):
     def __init__(self, x, y):
         self.graph = {}
-        self.graph[(x, y)] = (0, 1)
+        self.graph[(x, y)] = (0, 1, 0)
+        self.counter = 0
 
     def __getitem__(self, item):
         return self.graph[item]
 
-    def add_node(self, coord, way, probe):
-        way = d[way]
-        new_node = Node(sum_coord(coord, way), probe)
-        if not new_node.k in self.graph:
-            self.graph[new_node.k] = new_node.v
-        else:
-            self.graph[new_node.k] = (new_node.v[0], new_node.v[1] + 1)
-        return new_node.k
-
     def add_node_coord(self, coord):
-        new_node = Node(coord, 1)
+        # Set this to the same amount of Drone.fuel to make
+        # the algorithm behave like if there is no optimization
+        # If it's less, it will delete nodes when the graph becomes
+        # big, saving memory, with a variable increase of the cost
+        # of the search algorithm. 10 seemed to be a good choice for
+        # this parameter (obviously not deleting nodes is always better)
+        GRAPH_MAX_LENGTH = 2000
+        self.counter += 1
+        if len(self.graph) > GRAPH_MAX_LENGTH:
+            for node in self.graph:
+                if self.graph[node][2] == (self.counter - GRAPH_MAX_LENGTH):
+                    self.graph.pop(node, None)
+                    break
+        new_node = Node(coord, 1, self.counter)
         if not new_node.k in self.graph:
             self.graph[new_node.k] = new_node.v
         else:
             old_node = self.graph[coord]
-            self.graph[coord] = (old_node[0], old_node[1] + 1)
+            self.graph[coord] = (old_node[0], old_node[1] + 1, self.counter)
         return new_node.k
 
     def change_weight(self, coord, w):
-        self.graph[coord] = (w, self.graph[coord][1])
+        self.graph[coord] = (w, self.graph[coord][1], self.graph[coord][2])
 
     def print_graph(self):
         for node in self.graph:
@@ -45,6 +50,6 @@ class Graph(object):
 
 
 class Node(object):
-    def __init__(self, k, weight):
+    def __init__(self, k, weight, counter):
         self.k = k
-        self.v = (weight, 1)
+        self.v = (weight, 1, counter)
