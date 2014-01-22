@@ -10,7 +10,7 @@ class Graph(object):
     def __init__(self, x, y):
         self.graph = {}
         self.graph[(x, y)] = (0, 1, 0)
-        self.counter = 0
+        self.counter = 1
         # Set this to the same amount of Drone.fuel to make
         # the algorithm behave like if there is no optimization
         # If it's less, it will delete nodes when the graph becomes
