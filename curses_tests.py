@@ -6,24 +6,20 @@ from math import sqrt, fsum
 import drone_game
 import glob
 
-
 def tests(size, screen, knowledge=False, reduxed=False):
     results = []
-    j = 0
     counter = 1
-    test_size = size
-    if reduxed:
-        j = 1
-        test_size -= 1
+    test_size = size - 1
+    j = 1
     prepare_window(screen)
     screen.addstr(2, 2, "Eseguo i test...")
 
-    for end_x in range(j, test_size):
-        for end_y in range(j, test_size):
-            for start_x in range(j, test_size):
-                for start_y in range(j, test_size):
+    for end_x in range(test_size/2 - test_size/4, test_size/2 + test_size/4):
+        for end_y in range(test_size/2 - test_size/4, test_size/2 + test_size/4):
+            for start_x in range(j, test_size - 1):
+                for start_y in range(j, test_size - 1):
                     # Mostro la percentuale di avanzamento dello script
-                    i = (counter * 100 / (test_size - j) ** 4)
+                    i = (counter * 100) / (((test_size - j - 1) ** 2) * ((test_size / 4) * 2) ** 2)
                     screen.addstr(4, 2, str(i) + "%")
                     screen.refresh()
                     counter += 1
@@ -32,7 +28,6 @@ def tests(size, screen, knowledge=False, reduxed=False):
                     sys.stdout = StringIO()
                     results.append(drone_game.main(size, end_x, end_y, start_x, start_y, knowledge))
                     sys.stdout = actualstdout
-    print
     return results
 
 
