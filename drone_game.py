@@ -4,7 +4,7 @@ from game_engine import Game, Drone, DroneKnowledge
 from utils.matrix_generator import world_generator
 
 # Global parameters
-#script, size, x, y, drone_x, drone_y = argv
+
 
 # Algorithm parameters
 # ...
@@ -24,3 +24,7 @@ def main(size, x, y, drone_x, drone_y, knowledge=False):
         drones = [Drone(MATRIX_SIZE, START_X, START_Y)]
     game = Game(world, drones, KNOWLEDGE)
     return game.start_game()
+
+#if __name__ == "__main__":
+#    script, size, x, y, drone_x, drone_y = argv
+#    main(size, x, y, drone_x, drone_y)

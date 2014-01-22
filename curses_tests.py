@@ -13,8 +13,8 @@ def tests(size, screen, knowledge=False, reduxed=False):
     counter = 1
     test_size = size
     if reduxed:
-        j = 2
-        test_size -= 2
+        j = 1
+        test_size -= 1
     prepare_window(screen)
     screen.addstr(2, 2, "Eseguo i test...")
 
@@ -226,7 +226,6 @@ def main(screen):
         cnt += 2
     screen.addstr(cnt, 2, "Premere q per uscire")
     close(screen)
-    print MATRIX_SIZE
 
 
 if __name__ == '__main__':

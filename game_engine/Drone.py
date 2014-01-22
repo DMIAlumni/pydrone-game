@@ -27,7 +27,12 @@ class Drone(object):
         self.kb.add_node_coord((x, y))
 
     def strategy(self):
-        return search_far_calibration(self.kb, self.actual_position, self.distances, self)
+        x, y = search_far_calibration(self.kb, self.actual_position, self.distances, self)
+        #Questo e' uno dei parametri che pesano sull'efficenza
+        if self.graph[x][y] <= 1.5:
+            return x, y
+        else:
+            return change_strategy(self)
 
     def print_world(self):
         print
