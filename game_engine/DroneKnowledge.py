@@ -8,7 +8,7 @@ class DroneKnowledge(object):
         self.graph = matrix_generator(world_size)
         self.fuel = 200
         self.distances = []
-        #New init, using graph
+        # New init, using graph
         self.kb = world
 
     def move(self, x, y):

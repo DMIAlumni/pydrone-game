@@ -60,7 +60,7 @@ def go_far(drone):
 def search_close(drone):
 
     direction = (0 if drone.last_direction == 1 or drone.last_direction == 7 else
-                4 if drone.last_direction == 3 or drone.last_direction == 5 else drone.last_direction)
+                 4 if drone.last_direction == 3 or drone.last_direction == 5 else drone.last_direction)
 
     return void_directions(direction, drone)
 

@@ -97,14 +97,14 @@ def stat_from_file(file):
 
 script, size = argv
 MATRIX_SIZE = int(size)
-#ans = raw_input("[E]seguire i test, o [A]nalizzare un file? ")
-#if ans == "E" or ans == "e":
+# ans = raw_input("[E]seguire i test, o [A]nalizzare un file? ")
+# if ans == "E" or ans == "e":
 results_optimal = tests(MATRIX_SIZE, True)
 results = tests(MATRIX_SIZE)
 print "-------------------------------------------------"
 if not raw_input("Vuoi salvare i risultati? [S/n]") == "n":
     save_results(results, MATRIX_SIZE)
 stats(results, results_optimal)
-#elif ans == "A" or ans == "a":
+# elif ans == "A" or ans == "a":
 #    file = str(raw_input("Nome del file: "))
 #    stat_from_file(file)

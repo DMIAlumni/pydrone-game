@@ -25,6 +25,6 @@ def main(size, x, y, drone_x, drone_y, knowledge=False):
     game = Game(world, drones, KNOWLEDGE)
     return game.start_game()
 
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    script, size, x, y, drone_x, drone_y = argv
 #    main(size, x, y, drone_x, drone_y)

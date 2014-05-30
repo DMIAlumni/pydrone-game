@@ -124,7 +124,7 @@ def get_file(string, screen, ms):
             else:
                 pos = len(files) + 1
 
-     # return index of the selected item
+    # return index of the selected item
     if pos == len(files):
         prepare_window(screen)
         curses.echo()

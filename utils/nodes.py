@@ -31,7 +31,7 @@ class Graph(object):
                     self.graph.pop(node, None)
                     break
         new_node = Node(coord, 1, self.counter)
-        if not new_node.k in self.graph:
+        if new_node.k not in self.graph:
             self.graph[new_node.k] = new_node.v
         else:
             old_node = self.graph[coord]

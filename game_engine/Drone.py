@@ -5,7 +5,7 @@ from algorithm import search_far_calibration, change_strategy
 
 class Drone(object):
     def __init__(self, world_size, x, y):
-        #self.kb = self.generate_kb(world_size)
+        # self.kb = self.generate_kb(world_size)
         self.flipflop = False
         self.last_modifier = 0
         self.graph = matrix_generator(world_size)
@@ -14,7 +14,7 @@ class Drone(object):
         self.fuel = 2000
         self.distances = []
         self.last_direction = 0
-        #New init, using graph
+        # New init, using graph
         self.kb = Graph(x, y)
 
     def move(self, x, y):
@@ -25,7 +25,7 @@ class Drone(object):
 
     def strategy(self):
         x, y = search_far_calibration(self)
-        #Questo e' uno dei parametri che pesano sull'efficenza
+        # Questo e' uno dei parametri che pesano sull'efficenza
         if self.graph[x][y] <= 1:
             return x, y
         else:
@@ -37,5 +37,5 @@ class Drone(object):
 
     def probe(self, distance):
         self.distances.append(distance)
-        #New probe, with the graph
+        # New probe, with the graph
         self.kb.change_weight(self.actual_position, distance)
