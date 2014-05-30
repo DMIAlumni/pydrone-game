@@ -38,7 +38,7 @@ nosetests.xml
 # IDE 
 .idea/
 
-#Tests
+# Tests
 count*
 tests.sh*
 *.txt
