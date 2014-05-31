@@ -16,6 +16,25 @@ Not available at the moment.
 Usage
 -----
 
+:: code-block::
+
+    Usage: pydrone.py [OPTIONS] ANCHOR_X ANCHOR_Y DRONE_X DRONE_Y
+
+    Options:
+      --size INTEGER  Matrix size
+      --help          Show this message and exit.
+
+Interactive mode is available during drone algorithm execution.
+By default ``GeometricDrone`` is executed with these default values:
+
+:: code-block::
+
+    size: 40x40 matrix
+    anchor x: 5
+    anchor y: 19
+    drone x: 30
+    drone y: 30
+
 To run tests in interactive mode, got to project root and run:
 
 .. code-block::
