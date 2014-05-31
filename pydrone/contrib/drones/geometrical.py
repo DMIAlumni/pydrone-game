@@ -28,7 +28,7 @@ class GeometricDrone(DroneGraph, BaseDrone):
         else:
             return self.algorithm.change_strategy(self)
 
-    def print_world(self):
+    def print_status(self):
         # Print current known world and wait for user input before continue
         print_matrix(self.graph)
         raw_input()

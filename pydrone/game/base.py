@@ -15,7 +15,7 @@ class SingleAnchorSearchGame(object):
 
         # TODO: Initial 'player' with name to understand what drone is
         drone = self.next_drone()
-        drone.print_world()
+        drone.print_status()
 
         # Game cycle
         while self.asset_not_found or drone.fuel == 0:
@@ -26,7 +26,7 @@ class SingleAnchorSearchGame(object):
 
             x, y = drone.strategy()
             drone.move(x, y)
-            drone.print_world()
+            drone.print_status()
 
             i += 1
             if self.asset_found(x, y):
