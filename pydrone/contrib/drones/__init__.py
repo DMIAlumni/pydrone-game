@@ -1,1 +1,1 @@
-from . geometrical_drones import GeometricDrone
+from . geometrical import GeometricDrone
