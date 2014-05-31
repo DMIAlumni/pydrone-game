@@ -27,7 +27,7 @@ Usage
 
 .. code-block:: bash
 
-    Usage: pydrone.py [OPTIONS] ANCHOR_X ANCHOR_Y DRONE_X DRONE_Y
+    Usage: pydrone_game.py [OPTIONS] ANCHOR_X ANCHOR_Y DRONE_X DRONE_Y
 
     Options:
       --size INTEGER  Matrix size
