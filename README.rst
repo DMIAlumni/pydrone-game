@@ -30,8 +30,9 @@ Usage
     Usage: pydrone_game.py [OPTIONS] ANCHOR_X ANCHOR_Y DRONE_X DRONE_Y
 
     Options:
-      --size INTEGER  Matrix size
-      --help          Show this message and exit.
+      --size INTEGER                Matrix size
+      --benchmark / --no-benchmark  Start benchmark interfaces
+      --help                        Show this message and exit.
 
 Interactive mode is available during drone algorithm execution.
 By default ``GeometricDrone`` is executed with these default values:
@@ -50,19 +51,17 @@ To run this project with default settings, simply:
 
     $ python pydrone_game.py
 
-To run tests in interactive mode, got to project root and run:
+Benchmark interface
+-------------------
+
+To run tests between your algorithm and another one (``GreedyCompleteDrone`` at the moment)
+run this command to execute a curses wrapper:
 
 .. code-block::
 
-    $ python curses_tests.py
+    $ python pydrone_game.py --benchmark
 
 and follow the instruction on the screen.
-
-For more tests, check:
-
-.. code-block::
-
-    $ python better_tests.py -h
 
 Settings
 --------
