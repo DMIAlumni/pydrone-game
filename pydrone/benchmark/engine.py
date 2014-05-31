@@ -47,7 +47,6 @@ class Benchmark(object):
             print>>file, ris
         file.close()
 
-
     def stats(self, results):
         # Average, fails and worst case
         sum = 0
@@ -70,11 +69,9 @@ class Benchmark(object):
         sorted_frequenze = sorted_frequenze[:10]
         return not_found, worst, avg, scarto, frequenze, sorted_frequenze
 
-
     def prepare_window(self, screen):
         screen.clear()
         screen.border(0)
-
 
     def get_matrix_size(self, screen):
         self.prepare_window(screen)
@@ -90,7 +87,6 @@ class Benchmark(object):
                 return self.get_matrix_size(screen)
         except:
             return self.get_matrix_size(screen)
-
 
     def get_file(self, string, screen, ms):
         x = None
@@ -149,7 +145,6 @@ class Benchmark(object):
             file = files[pos]
         return file
 
-
     def get_param(self, prompt_string, screen, cbreak=False):
         self.prepare_window(screen)
         curses.echo()
@@ -159,7 +154,6 @@ class Benchmark(object):
         screen.refresh()
         input = screen.getch()
         return input
-
 
     def close(self, screen):
         curses.cbreak()
@@ -172,7 +166,6 @@ class Benchmark(object):
             curses.endwin()
         else:
             self.close(screen)
-
 
     def start(self, screen):
         MATRIX_SIZE = self.get_matrix_size(screen)

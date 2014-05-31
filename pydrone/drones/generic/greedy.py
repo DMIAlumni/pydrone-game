@@ -19,7 +19,6 @@ class GreedyCompleteDrone(DroneGraph, BaseDrone):
         complete_world = kwargs.get('world')
         self.kb = complete_world
 
-
     def move(self, x, y):
         self.fuel -= 1
         self.actual_position = (x, y)
