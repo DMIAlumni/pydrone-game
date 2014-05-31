@@ -48,7 +48,7 @@ To run this project with default settings, simply:
 
 .. code-block:: bash
 
-    $ python pydrone.py
+    $ python pydrone_game.py
 
 To run tests in interactive mode, got to project root and run:
 
