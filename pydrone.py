@@ -9,25 +9,23 @@ from pydrone.contrib.drones import GeometricDrone
 
 @click.command()
 @click.option('--size', default=40, help='Matrix size')
+@click.option('--knowledge', default=False, help='Use a greedy complete search algorithm')
 @click.argument('anchor-x', default=5)
 @click.argument('anchor-y', default=19)
 @click.argument('drone-x', default=30)
 @click.argument('drone-y', default=30)
-def single_anchor(size, anchor_x, anchor_y, drone_x, drone_y, knowledge=False):
-    MATRIX_SIZE = int(size)
-    END_X = int(anchor_x)
-    END_Y = int(anchor_y)
-    START_X = int(drone_x)
-    START_Y = int(drone_y)
-    KNOWLEDGE = knowledge
-    world = world_generator(MATRIX_SIZE, END_X, END_Y, KNOWLEDGE)
+def single_anchor(size, anchor_x, anchor_y, drone_x, drone_y, knowledge):
+    # Generate world
+    world = world_generator(size, anchor_x, anchor_y, knowledge)
 
-    if KNOWLEDGE:
-        drones = [GreedyCompleteDrone(MATRIX_SIZE, START_X, START_Y, world=world)]
+    # Check if drones should know world values
+    if knowledge:
+        drones = [GreedyCompleteDrone(size, drone_x, drone_y, world=world)]
     else:
-        drones = [GeometricDrone(MATRIX_SIZE, START_X, START_Y)]
+        drones = [GeometricDrone(size, drone_x, drone_y)]
 
-    game = SingleAnchorSearchGame(world, drones, KNOWLEDGE)
+    # Create single anchor search game
+    game = SingleAnchorSearchGame(world, drones, knowledge)
     moves = game.start_game()
     print "Total moves: ", moves
 
