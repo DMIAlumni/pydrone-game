@@ -1,8 +1,9 @@
 from sys import argv
 
-from pydrone.game_engine import Game, DroneKnowledge
+from pydrone.game_engine import Game
 from pydrone.utils.matrix_generator import world_generator
 
+from pydrone.drones.generic import GreedyCompleteDrone
 from pydrone.contrib.drones import GeometricDrone
 
 # Global parameters
@@ -21,7 +22,7 @@ def main(size, x, y, drone_x, drone_y, knowledge=False):
     KNOWLEDGE = knowledge
     world = world_generator(MATRIX_SIZE, END_X, END_Y, KNOWLEDGE)
     if KNOWLEDGE:
-        drones = [DroneKnowledge(world, START_X, START_Y, MATRIX_SIZE)]
+        drones = [GreedyCompleteDrone(world, START_X, START_Y, MATRIX_SIZE)]
     else:
         drones = [GeometricDrone(MATRIX_SIZE, START_X, START_Y)]
     game = Game(world, drones, KNOWLEDGE)

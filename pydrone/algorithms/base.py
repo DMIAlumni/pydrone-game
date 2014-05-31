@@ -1,7 +1,7 @@
-"""
-Algorithm interface
-"""
 class BaseAlgorithm(object):
+    """
+    Algorithm interface
+    """
 
-    def evaluate(self):
+    def evaluate(self, drone):
         raise NotImplementedError()
