@@ -1,6 +1,6 @@
 from sys import argv
 
-from pydrone.game_engine import Game
+from pydrone.game import SingleAnchorSearchGame
 from pydrone.utils.matrix_generator import world_generator
 
 from pydrone.drones.generic import GreedyCompleteDrone
@@ -25,7 +25,7 @@ def main(size, x, y, drone_x, drone_y, knowledge=False):
         drones = [GreedyCompleteDrone(world, START_X, START_Y, MATRIX_SIZE)]
     else:
         drones = [GeometricDrone(MATRIX_SIZE, START_X, START_Y)]
-    game = Game(world, drones, KNOWLEDGE)
+    game = SingleAnchorSearchGame(world, drones, KNOWLEDGE)
     moves = game.start_game()
     print "Total moves: ", moves
 
