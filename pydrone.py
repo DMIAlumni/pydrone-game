@@ -21,10 +21,12 @@ def single_anchor(size, anchor_x, anchor_y, drone_x, drone_y, knowledge=False):
     START_Y = int(drone_y)
     KNOWLEDGE = knowledge
     world = world_generator(MATRIX_SIZE, END_X, END_Y, KNOWLEDGE)
+
     if KNOWLEDGE:
-        drones = [GreedyCompleteDrone(world, START_X, START_Y, MATRIX_SIZE)]
+        drones = [GreedyCompleteDrone(MATRIX_SIZE, START_X, START_Y, world=world)]
     else:
         drones = [GeometricDrone(MATRIX_SIZE, START_X, START_Y)]
+
     game = SingleAnchorSearchGame(world, drones, KNOWLEDGE)
     moves = game.start_game()
     print "Total moves: ", moves
