@@ -43,5 +43,9 @@ def print_matrix(matrix):
     size = len(matrix[0])
     for j in range(size):
         for i in range(size):
-            print "", matrix[i][j],
+            value = matrix[i][j]
+            if value > 0:
+                print "", "*",
+            else:
+                print "", "-",
         print
