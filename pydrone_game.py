@@ -1,10 +1,8 @@
 import click
 import curses
 
-
 from pydrone.benchmark import Benchmark
 from settings import EXECUTION_DRONE, BENCHMARK_DRONE
-
 
 from pydrone.game import SingleAnchorSearchGame
 from pydrone.utils.matrix_generator import world_generator
@@ -12,7 +10,7 @@ from pydrone.utils.matrix_generator import world_generator
 
 @click.command()
 @click.option('--size', default=40, help='Matrix size')
-@click.option('--benchmark', default=False, help='Start benchmark interfaces')
+@click.option('--benchmark/--no-benchmark', default=False, help='Start benchmark interfaces')
 @click.argument('anchor-x', default=5)
 @click.argument('anchor-y', default=19)
 @click.argument('drone-x', default=30)
