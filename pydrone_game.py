@@ -1,10 +1,8 @@
 import click
+from settings import EXECUTION_DRONE, BENCHMARK_DRONE
 
 from pydrone.game import SingleAnchorSearchGame
 from pydrone.utils.matrix_generator import world_generator
-
-from pydrone.drones.generic import GreedyCompleteDrone
-from pydrone.contrib.drones import GeometricDrone
 
 
 @click.command()
@@ -20,9 +18,9 @@ def single_anchor(size, anchor_x, anchor_y, drone_x, drone_y, knowledge):
 
     # Check if drones should know world values
     if knowledge:
-        drones = [GreedyCompleteDrone(size, drone_x, drone_y, world=world)]
+        drones = [BENCHMARK_DRONE(size, drone_x, drone_y, world=world)]
     else:
-        drones = [GeometricDrone(size, drone_x, drone_y)]
+        drones = [EXECUTION_DRONE(size, drone_x, drone_y)]
 
     # Create single anchor search game
     game = SingleAnchorSearchGame(world, drones, knowledge)
