@@ -13,10 +13,19 @@ Description
 
 Not available at the moment.
 
+Requirements
+------------
+
+Simply create your virtual env and install requirements:
+
+.. code-block:: bash
+
+    $ pip install -r requirements.txt
+
 Usage
 -----
 
-:: code-block::
+.. code-block:: bash
 
     Usage: pydrone.py [OPTIONS] ANCHOR_X ANCHOR_Y DRONE_X DRONE_Y
 
@@ -27,13 +36,19 @@ Usage
 Interactive mode is available during drone algorithm execution.
 By default ``GeometricDrone`` is executed with these default values:
 
-:: code-block::
+.. code-block:: bash
 
     size: 40x40 matrix
     anchor x: 5
     anchor y: 19
     drone x: 30
     drone y: 30
+
+To run this project with default settings, simply:
+
+.. code-block:: bash
+
+    $ python pydrone.py
 
 To run tests in interactive mode, got to project root and run:
 
