@@ -1,5 +1,6 @@
-from utils.direction_modifier import void_directions, get_direction, d
 import random
+
+from pydrone.utils.direction_modifier import void_directions, get_direction, d
 
 
 def search_far_calibration(drone):

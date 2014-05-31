@@ -1,5 +1,5 @@
-from algorithm import greedy_generic
-from utils.matrix_generator import matrix_generator
+from pydrone.algorithm import greedy_generic
+from pydrone.utils.matrix_generator import matrix_generator
 
 
 class DroneKnowledge(object):

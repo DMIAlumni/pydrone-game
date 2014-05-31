@@ -1,4 +1,4 @@
-from utils.direction_modifier import void_directions, get_direction
+from pydrone.utils.direction_modifier import void_directions, get_direction
 
 
 def greedy_generic(drone):

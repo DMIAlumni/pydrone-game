@@ -1,7 +1,7 @@
 from sys import argv
 
-from game_engine import Game, Drone, DroneKnowledge
-from utils.matrix_generator import world_generator
+from pydrone.game_engine import Game, Drone, DroneKnowledge
+from pydrone.utils.matrix_generator import world_generator
 
 # Global parameters
 

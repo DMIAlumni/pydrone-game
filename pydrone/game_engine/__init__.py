@@ -1,3 +1,3 @@
 from .Drone import Drone
-from .Game import Game
 from .DroneKnowledge import DroneKnowledge
+from .Game import Game

@@ -1,4 +1,4 @@
-from direction_modifier import modifier, d
+from pydrone.utils.direction_modifier import modifier, d
 
 
 def sum_coord(point, mod):

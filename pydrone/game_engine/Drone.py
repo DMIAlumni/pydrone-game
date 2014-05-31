@@ -1,6 +1,7 @@
-from utils.matrix_generator import print_matrix, matrix_generator
-from utils.nodes import Graph
-from algorithm import search_far_calibration, change_strategy
+from pydrone.utils.matrix_generator import print_matrix
+from pydrone.utils.nodes import Graph
+from pydrone.algorithm import search_far_calibration, change_strategy
+from pydrone.utils.matrix_generator import matrix_generator
 
 
 class Drone(object):
