@@ -23,8 +23,9 @@ def main(size, x, y, drone_x, drone_y, knowledge=False):
     else:
         drones = [Drone(MATRIX_SIZE, START_X, START_Y)]
     game = Game(world, drones, KNOWLEDGE)
-    return game.start_game()
+    moves = game.start_game()
+    print "Total moves: ", moves
 
-# if __name__ == "__main__":
-#    script, size, x, y, drone_x, drone_y = argv
-#    main(size, x, y, drone_x, drone_y)
+if __name__ == "__main__":
+    script, size, x, y, drone_x, drone_y = argv
+    main(size, x, y, drone_x, drone_y)
