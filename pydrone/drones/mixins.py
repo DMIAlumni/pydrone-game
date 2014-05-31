@@ -1,4 +1,4 @@
-from pydrone.utils.nodes import Graph
+from pydrone.utils.data_structures import Graph
 from pydrone.utils.matrix_generator import matrix_generator
 
 

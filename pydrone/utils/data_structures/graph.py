@@ -1,11 +1,6 @@
 from pydrone.utils.direction_modifier import modifier, d
 
 
-def sum_coord(point, mod):
-    mod = modifier(mod, 1)
-    return (point[0] + mod[0], point[1] + mod[1])
-
-
 class Graph(object):
     def __init__(self, x, y):
         self.graph = {}
@@ -22,6 +17,10 @@ class Graph(object):
 
     def __getitem__(self, item):
         return self.graph[item]
+
+    def sum_coord(point, mod):
+        mod = modifier(mod, 1)
+        return (point[0] + mod[0], point[1] + mod[1])
 
     def add_node_coord(self, coord):
         self.counter += 1
@@ -46,7 +45,7 @@ class Graph(object):
             print node, ": ", self.graph[node]
 
     def goto(self, coord, way):
-        new_coord = sum_coord(coord, d[way])
+        new_coord = self.sum_coord(coord, d[way])
         return self.graph[new_coord] if new_coord in self.graph else -1
 
 

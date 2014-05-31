@@ -2,7 +2,7 @@ import math
 import fpformat
 import os
 
-from pydrone.utils.nodes import Graph
+from pydrone.utils.data_structures import Graph
 
 
 def world_generator(size, x_end, y_end, knowledge):
