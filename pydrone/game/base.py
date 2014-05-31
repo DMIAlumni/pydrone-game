@@ -5,17 +5,19 @@ class SingleAnchorSearchGame(object):
 
     asset_not_found = True
 
-    def __init__(self, world, drones, knowledge):
+    def __init__(self, world, drones, knowledge, benchmark):
         self.k = knowledge
         self.world = world
         self.drones = drones
+        self.benchmark = benchmark
 
     def start_game(self):
         i = 0
 
         # TODO: Initial 'player' with name to understand what drone is
         drone = self.next_drone()
-        drone.print_status()
+        if not self.benchmark:
+            drone.print_status()
 
         # Game cycle
         while self.asset_not_found or drone.fuel == 0:
@@ -26,7 +28,8 @@ class SingleAnchorSearchGame(object):
 
             x, y = drone.strategy()
             drone.move(x, y)
-            drone.print_status()
+            if not self.benchmark:
+                drone.print_status()
 
             i += 1
             if self.asset_found(x, y):
@@ -34,6 +37,10 @@ class SingleAnchorSearchGame(object):
 
             # Wait for input and extract new drone
             drone = self.next_drone()
+
+        # TODO: enchance this block
+        if not self.benchmark:
+            print "Total moves: ", i
 
         if drone.fuel == 0:
             return 0
