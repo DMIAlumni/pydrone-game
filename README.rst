@@ -64,6 +64,16 @@ For more tests, check:
 
     $ python better_tests.py -h
 
+Settings
+--------
+
+In ``settings.py`` file you can define everything is needed to change project behaviour:
+
+.. code-block:: bash
+
+    EXECUTION_DRONE: class of executed drone during interaction mode
+    BENCHMARK_DRONE: class of the best algorithm available during benchmarks
+
 License
 -------
 
